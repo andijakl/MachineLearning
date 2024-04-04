@@ -1,7 +1,5 @@
 # Machine Learning - Digital Healthcare
 
-![Machine Learning](https://github.com/andijakl/MachineLearning/raw/main/images/machine_learning_banner.jpg)
-
 ## Overview
 
 The **MachineLearning** repository contains exercises for the **Machine Learning class of Digital Healthcare** at the [St. Pölten University of Applied Sciences](https://www.fhstp.ac.at/en/academic-studies-continuing-education/media-digital-technologies/digital-healthcare). It covers various topics related to machine learning, including Python, NumPy, pandas, scikit-learn, and deep learning using TensorFlow.
