@@ -1,12 +1,12 @@
-# Machine Learning - Digital Healthcare
+# Machine Learning Labs for Digital Healthcare
 
 ## Overview
 
-The **MachineLearning** repository contains exercises for the **Machine Learning class of Digital Healthcare** at the [St. Pölten University of Applied Sciences](https://www.fhstp.ac.at/en/academic-studies-continuing-education/media-digital-technologies/digital-healthcare). It covers various topics related to machine learning, including Python, NumPy, pandas, scikit-learn, and deep learning using TensorFlow.
+The **MachineLearning** repository contains exercises for the **Machine Learning class of Digital Healthcare** at the [St. Pölten University of Applied Sciences](https://www.fhstp.ac.at/en/academic-studies-continuing-education/media-digital-technologies/digital-healthcare). It covers various topics related to machine learning, including Python, NumPy, pandas, scikit-learn, deep learning (using TensorFlow), generative AI, and foundation models.
 
 ### Table of Contents
 
-- [Machine Learning - Digital Healthcare](#machine-learning---digital-healthcare)
+- [Machine Learning Labs for Digital Healthcare](#machine-learning-labs-for-digital-healthcare)
   - [Overview](#overview)
     - [Table of Contents](#table-of-contents)
     - [Introduction](#introduction)
@@ -35,9 +35,10 @@ To get started, follow these steps:
 
 Explore the following labs within the repository:
 
-1. **Lab 1 - Python, NumPy, and pandas**: Learn the basics of data manipulation and analysis using Python libraries.
-2. **Lab 2 - Scikit-learn for heart disease prediction**: Apply machine learning algorithms to predict heart disease risk.
-3. **Lab 3 - Deep learning for colorectal cancer detection**: Dive into neural networks and deep learning techniques based on TensorFlow.
+1. **Lab 1 – Python, NumPy, and pandas**: Learn the basics of data manipulation and analysis using Python libraries.
+2. **Lab 2 – Scikit-learn for heart disease prediction**: Apply machine learning algorithms to predict heart disease risk.
+3. **Lab 3 – Deep learning for colorectal cancer detection**: Dive into neural networks and deep learning techniques based on TensorFlow.
+4. **Lab 3b – Generative AI and Foundation Models with Amazon PartyRock**: Explore generative AI and prompt design through a no-code visual app editor at no cost.
 
 Feel free to contribute by submitting pull requests, reporting issues, or improving existing code. Let's learn together!
 
