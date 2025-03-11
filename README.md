@@ -33,14 +33,19 @@ To get started, follow these steps:
 
 ### Usage
 
+The repository contains some complete examples that are explained and worked on during class:
+
+1. **Example - iris with pytorch**: A complete example of a neural network using PyTorch to predict iris flowers, the classical hello world example of machine learning.
+2. **Example - breast cancer with pytorch**: further extending neural network training with more added features, this time using the breast cancer dataset.
+3. **Example - mnist with dense nn and pytorch**: Example of the mnist dataset (images of numbers from 0-9) using a dense neural network with PyTorch.
+4. **Example - mnist with cnn and pytorch**: Similar to the previous example, but using a convolutional neural network (CNN) with PyTorch.
+
 Explore the following labs within the repository:
 
 1. **Lab 1 – Python, NumPy, and pandas**: Learn the basics of data manipulation and analysis using Python libraries.
 2. **Lab 2 – Scikit-learn for heart disease prediction**: Apply machine learning algorithms to predict heart disease risk.
 3. **Lab 3 – Deep learning for colorectal cancer detection**: Dive into neural networks and deep learning techniques based on TensorFlow.
 4. **Lab 3b – Generative AI and Foundation Models with Amazon PartyRock**: Explore generative AI and prompt design through a no-code visual app editor at no cost.
-
-Feel free to contribute by submitting pull requests, reporting issues, or improving existing code. Let's learn together!
 
 ### Contributing
 
