@@ -1,25 +1,27 @@
 # Machine Learning Labs for Digital Healthcare
 
-## Overview
-
 The **MachineLearning** repository contains exercises for the **Machine Learning class of Digital Healthcare** at the [St. Pölten University of Applied Sciences](https://www.fhstp.ac.at/en/academic-studies-continuing-education/media-digital-technologies/digital-healthcare). It covers various topics related to machine learning, including Python, NumPy, pandas, scikit-learn, deep learning (using PyTorch or TensorFlow), generative AI, and foundation models.
 
-### Table of Contents
+## Table of Contents
 
 - [Machine Learning Labs for Digital Healthcare](#machine-learning-labs-for-digital-healthcare)
-  - [Overview](#overview)
-    - [Table of Contents](#table-of-contents)
-    - [Introduction](#introduction)
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [Contributing](#contributing)
-    - [License](#license)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Examples](#examples)
+    - [Python Labs](#python-labs)
+    - [PyTorch Labs](#pytorch-labs)
+    - [Scikit-Learn Labs](#scikit-learn-labs)
+    - [Tensorflow Labs](#tensorflow-labs)
+    - [Generative AI Labs](#generative-ai-labs)
+  - [License](#license)
 
-### Introduction
+## Introduction
 
 This repository serves as a resource for students and practitioners interested in machine learning techniques. The exercises do not contain the solutions. They contain all the instructions necessary to complete the tasks. Automated checks (using assert statements) help you verify your solutions. The exercises are designed to be self-contained and can be completed without additional materials.
 
-### Installation
+## Installation
 
 To get started, follow these steps:
 
@@ -31,7 +33,9 @@ To get started, follow these steps:
 
 2. Install the necessary dependencies (Python, NumPy, pandas, scikit-learn, etc.).
 
-### Usage
+## Usage
+
+### Examples
 
 The repository contains some complete examples that are explained and worked on during class:
 
@@ -41,33 +45,29 @@ The repository contains some complete examples that are explained and worked on 
 4. [**Example - mnist with cnn and pytorch**](/example%20-%20mnist%20with%20cnn%20and%20pytorch/): Similar to the previous example, but using a convolutional neural network (CNN) with PyTorch.
 5. [**Example - llm with rag**](/example%20-%20llm%20with%20rag/): A simple example of a large language model (LLM) using retrieval-augmented generation (RAG) with Ollama and Langchain.
 
-Explore the following labs within the repository. These do not contain the solutions. They contain all the instructions necessary to complete the tasks. Automated checks (using assert statements) help you verify your solutions.
+### Python Labs
 
-Python Labs:
+Explore the following labs within the repository. These do not contain the solutions. They contain all the instructions necessary to complete the tasks. Automated checks (using assert statements) help you verify your solutions.
 
 - [**Lab – Python, NumPy, and pandas**](/lab%20-%20python%20numpy%20pandas/): Learn the basics of data manipulation and analysis using Python libraries.
 
-PyTorch Labs:
+### PyTorch Labs
 
 - [**Lab - Pytorch - heart disease**](/lab%20-%20pytorch%20-%20heart%20disease/): A complete example of a neural network using PyTorch to predict heart disease, the classical hello world example of machine learning.
 - [**Lab - Pytorch - colorectal cancer detection**](/lab%20-%20pytorch%20-%20colorectal%20cancer/): Further extending neural network training with more added features, this time using the colorectal cancer dataset.
 
-Scikit-Learn Labs:
+### Scikit-Learn Labs
 
 - [**Lab – Scikit-learn for heart disease prediction**](/lab%20-%20scikit%20learn%20-%20heart%20disease/): Apply machine learning algorithms to predict heart disease risk.
 
-Tensorflow Labs:
+### Tensorflow Labs
 
 - [**Lab – Tensorflow - colorectal cancer detection**](/lab%20-%20scikit%20learn%20-%20heart%20disease/): Dive into neural networks and deep learning techniques based on TensorFlow.
 
-Generative AI Labs:
+### Generative AI Labs
 
 - [**Lab – Generative AI and Foundation Models with Amazon PartyRock**](/lab%20-%20generative%20ai%20and%20foundation%20models%20-%20amazon%20partyrock/): Explore generative AI and prompt design through a no-code visual app editor at no cost.
 
-### Contributing
-
-Contributions are welcome! If you have ideas for improving this repository, please open an issue or submit a pull request. Let's collaborate and make this resource even better.
-
-### License
+## License
 
 This project is licensed under the **GNU General Public License v3.0**. You can find the full license details in the [LICENSE](https://github.com/andijakl/MachineLearning/blob/main/LICENSE) file.

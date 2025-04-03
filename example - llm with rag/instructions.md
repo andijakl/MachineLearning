@@ -54,9 +54,10 @@
     * Go to `File > Save As...`.
     * Navigate *into* the `python-rag-project` folder you created.
     * Save the file with a `.py` extension, for example, `rag_script.py`.
-2. **Add the PDF:**
-    * Make sure you have a demo .pdf file that contains text for your RAG application.
-    * Copy or move this PDF file *directly into* the `python-rag-project` folder, alongside `rag_script.py`.
+2. **Add the PDFs:**
+    * Make sure you have at least one demo .pdf file that contains text for your RAG application.
+    * Create a new folder inside `python-rag-project` called `source_docs`.
+    * Copy or move your PDF files *directly into* the `source_docs` folder.
 
 ## Phase 3: Set Up the Python Environment and Install Libraries
 
