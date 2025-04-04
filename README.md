@@ -43,7 +43,8 @@ The repository contains some complete examples that are explained and worked on 
 2. [**Example - breast cancer with pytorch**](/example%20-%20breast%20cancer%20with%20pytorch/): further extending neural network training with more added features, this time using the breast cancer dataset.
 3. [**Example - mnist with dense nn and pytorch**](/example%20-%20mnist%20with%20dense%20nn%20and%20pytorch/): Example of the mnist dataset (images of numbers from 0-9) using a dense neural network with PyTorch.
 4. [**Example - mnist with cnn and pytorch**](/example%20-%20mnist%20with%20cnn%20and%20pytorch/): Similar to the previous example, but using a convolutional neural network (CNN) with PyTorch.
-5. [**Example - llm with rag**](/example%20-%20llm%20with%20rag/): A simple example of a large language model (LLM) using retrieval-augmented generation (RAG) with Ollama and Langchain.
+5. [**Example - llm with ollama and langchain**](/example%20-%20llm%20with%20ollama%20and%20langchain/): A simple example of a large language model (LLM, in this case Microsoft Phi4-Mini) using Ollama and Langchain.
+6. [**Example - llm with rag**](/example%20-%20llm%20with%20rag/): An extended example of a large language model (LLM) using retrieval-augmented generation (RAG) with Ollama and Langchain.
 
 ### Python Labs
 
