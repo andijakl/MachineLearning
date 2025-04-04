@@ -136,6 +136,13 @@
 
 * **`python` or `pip` not recognized:** You likely missed the "Add Python 3.x to PATH" checkbox during Python installation. Reinstall Python carefully.
 * **`.\venv\Scripts\activate` error:** Make sure you are *inside* your `simple-llm-project` folder in the terminal and that the `venv` folder exists. Check for typos.
+* **Access denied error when executing `.\venv\Scripts\activate`:** Windows can have a policy in place that prevents running scripts. You can change this policy by running the following command in an elevated PowerShell (run as administrator):
+
+    ```powershell
+    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+    ```
+
+    After that, try activating the virtual environment again.
 * **ModuleNotFoundError:** You might have forgotten to activate the virtual environment (`.\venv\Scripts\activate`) before running `pip install` or before running `python llm.py`. Activate it and try `pip install ...` again or run the script again. If it complains about `langchain_ollama`, ensure the install command in Step 10 completed successfully.
 * **Ollama Connection Error:** Ensure the Ollama application is running in the background on Windows. Ensure you pulled the correct model (`ollama pull phi4-mini` or the model specified in the script).
 * **Error Messages:** If you encounter any error messages, copy them and search online for solutions or ask for help.
