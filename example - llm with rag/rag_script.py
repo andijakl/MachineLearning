@@ -5,7 +5,7 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_community.llms import Ollama
+from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
@@ -53,7 +53,7 @@ print("Vector store created.")
 # --- 4. Initialize LLM ---
 print(f"Initializing LLM: {OLLAMA_MODEL}...")
 # Assumes Ollama is running and the model is pulled
-llm = Ollama(model=OLLAMA_MODEL)
+llm = OllamaLLM(model=OLLAMA_MODEL)
 print("LLM initialized.")
 
 # --- 5. Create RAG Chain ---
