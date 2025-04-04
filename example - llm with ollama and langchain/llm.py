@@ -7,23 +7,23 @@ from langchain_ollama import OllamaLLM
 # Make sure you have pulled this model with 'ollama pull phi4-mini'
 OLLAMA_MODEL = "phi4-mini"
 
-print(f"--- Simple LLM Query Script ---")
+print("--- Simple LLM Query Script ---")
 print(f"Using Ollama model: {OLLAMA_MODEL}")
 
 # --- 1. Initialize LLM ---
-print(f"Initializing LLM: {OLLAMA_MODEL}...")
+print("Initializing LLM...")
 # This creates an object to interact with the specified Ollama model
 # It assumes Ollama is running locally on the default port
 try:
     llm = OllamaLLM(model=OLLAMA_MODEL)
     # Optional: Do a quick test invocation to ensure connection
-    llm.invoke("Hello!")
+    # print(llm.invoke("Hello!"))
     print("LLM initialized successfully.")
 except Exception as e:
     print(f"\nError initializing Ollama LLM: {e}")
-    print("Please ensure Ollama is running and the model '{OLLAMA_MODEL}' is pulled.")
+    print(f"Please ensure Ollama is running and the model '{OLLAMA_MODEL}' is pulled.")
     print(
-        "You can run Ollama and then use 'ollama pull {OLLAMA_MODEL}' in your terminal."
+        f"You can run Ollama and then use 'ollama pull {OLLAMA_MODEL}' in your terminal."
     )
     exit()  # Stop the script if LLM initialization fails
 
@@ -40,7 +40,6 @@ while True:
 
     # Make sure the input is not empty
     if not query.strip():
-        print("Please enter a prompt.")
         continue
 
     print("Thinking...")
