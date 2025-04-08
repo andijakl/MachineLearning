@@ -1,6 +1,6 @@
 example - llm with rag/source_docs/
 example - llm with rag/venv/
 example - llm with ollama and langchain/venv/
-lab - generative ai with rag experiments/rag_script_ui_solution.py
-lab - generative ai with rag experiments/venv/
-lab - generative ai with rag experiments/source_docs/
+lab - rag chatbot with ollama langchain gradio/rag_script_ui_solution.py
+lab - rag chatbot with ollama langchain gradio/venv/
+lab - rag chatbot with ollama langchain gradio/source_docs/
