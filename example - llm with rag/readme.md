@@ -38,6 +38,7 @@
 
     * **Wait:** This will download the model, which can take some time depending on your internet speed. Wait for it to complete. You should see progress bars and eventually a "success" message.
     * *Keep Ollama running in the background.* If you close the Ollama application window (if one appeared), the background service should still be active.
+    * *Restarting Ollama:* When you restart your computer, you may need to start the Ollama application again. Look for it in the Start Menu or system tray. You can also run `ollama list` in the Command Prompt to check if it's running and see the available models.
 
 ## Phase 2: Set Up the Project
 

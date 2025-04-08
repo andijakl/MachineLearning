@@ -118,7 +118,7 @@ iface = gr.Interface(
     outputs=gr.Textbox(label="Answer", lines=5),  # Output field
     title="Chat with Your Documents (RAG)",
     description=f"Ask questions about the PDF documents loaded from '{SOURCE_DIRECTORY}'. Uses Ollama model '{OLLAMA_MODEL}'.",
-    allow_flagging="never",  # Disables the flagging feature
+    flagging_mode="never",  # Disables the flagging feature
 )
 
 # --- 8. Launch the web server ---
