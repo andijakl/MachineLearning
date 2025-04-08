@@ -109,7 +109,7 @@ These tasks require adding or modifying small amounts of Python code.
 
 ---
 
-## Exercise Set 5: Simple Extension (Medium-Hard)
+## Exercise Set 5: Simple Extension (Medium)
 
 This requires understanding the loading process a bit more.
 
@@ -143,7 +143,7 @@ This requires understanding the loading process a bit more.
 
 Okay, here are additional exercise tasks building upon the previous ones, designed for students new to ML and Python but ready to explore a bit more.
 
-## Exercise Set 6: Exploring the RAG Components
+## Exercise Set 6: Exploring the RAG Components (Medium-Hard)
 
 1. **Try a Different Embedding Model:**
     * **Goal:** See how using a different model for turning text into numbers (embeddings) might affect the search results. Some models are better for specific tasks (like question answering).
@@ -203,7 +203,7 @@ Okay, here are additional exercise tasks building upon the previous ones, design
 
 ---
 
-## Exercise Set 7: Improving Robustness and User Experience
+## Exercise Set 7: Improving Robustness and User Experience (Medium)
 
 1. **Add Basic Ollama Connection Check on Startup:**
     * **Goal:** Make the script give a friendly error message and exit cleanly if it can't connect to the Ollama service when it starts, instead of crashing later.
