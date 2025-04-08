@@ -1,6 +1,8 @@
-# Exercises: Modifying and Extending the RAG Chatbot
+# Lab: Modify and Extend the RAG Chatbot with Ollama, Langchain, and Gradio
 
 These exercises will help you understand the [provided Python script with LLMs & RAG](https://github.com/andijakl/MachineLearning/tree/main/example%20-%20llm%20with%20rag) by making small, manageable changes. You'll get a feel for how the different parts work together without needing deep ML theory.
+
+For each of the exercise sets, summarize your main findings and any challenges you faced (~ 1 paragraph per set). Upload your modified script and your document to the course repository when you're done.
 
 **Prerequisites:**
 
@@ -12,7 +14,7 @@ These exercises will help you understand the [provided Python script with LLMs &
     ```
 
     *(Note: `faiss-cpu` is for CPU usage. If you have a compatible GPU and C++ build tools, you might use `faiss-gpu`, but `faiss-cpu` is easier to start with.)*
-3. **Ollama Running:** You need Ollama installed and running in the background with the model specified in the script (default: `phi3:mini`) pulled.
+3. **Ollama Running:** You need Ollama installed and running in the background with the model specified in the script (default: `phi4-mini`) pulled.
     * Install Ollama from [https://ollama.com/](https://ollama.com/)
     * Run `ollama pull phi4-mini` in your terminal (or whichever model you intend to use).
     * Make sure the Ollama application or background service is running.

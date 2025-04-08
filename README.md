@@ -67,6 +67,7 @@ Explore the following labs within the repository. These do not contain the solut
 
 ### Generative AI Labs
 
+- [**Lab: Modify and Extend the RAG Chatbot with Ollama, Langchain, and Gradio**](/lab%20-%20rag%20chatbot%20with%20ollama%20langchain%20gradio/): Explore the capabilities of a retrieval-augmented generation (RAG) chatbot using Ollama, Langchain, and Gradio.
 - [**Lab – Generative AI and Foundation Models with Amazon PartyRock**](/lab%20-%20generative%20ai%20and%20foundation%20models%20-%20amazon%20partyrock/): Explore generative AI and prompt design through a no-code visual app editor at no cost.
 
 ## License
