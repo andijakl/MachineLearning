@@ -4,7 +4,7 @@
 
 The following screenshot shows how installing and running the script looks like in the terminal window:
 
-![Screenshot of the terminal window showing the installation and running of the Python LLM script with Ollama and Langchain](https://raw.githubusercontent.com/andijakl/MachineLearning/example%20-%20llm%20with%20ollama%20and%20langchain/images/local-llm-with-ollama-langchain.png)
+![Screenshot of the terminal window showing the installation and running of the Python LLM script with Ollama and Langchain](./images/local-llm-with-ollama-langchain.png)
 
 ## Phase 1: Install Necessary Software
 
