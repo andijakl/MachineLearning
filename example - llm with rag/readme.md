@@ -8,7 +8,7 @@ The application can be launched through a terminal:
 
 After running the Python script, you can interact with the RAG system through a web interface (with `rag_script_ui.py`):
 
-![Screenshot of the web interface for the RAG system](./images/local-llm-rag-langchain-ollama-faiss-gradio.png)
+![Screenshot of the web interface for the RAG system](./images/local-llm-rag-gradio-web-interface.png)
 
 ## Phase 1: Install Necessary Software
 
