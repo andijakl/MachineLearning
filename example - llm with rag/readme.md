@@ -1,6 +1,14 @@
-# Instructions for Setting Up and Running the Python RAG Script with Ollama
+# Instructions for Setting Up a Retrieval-Augmented Generation (RAG) System with Ollama and Langchain
 
 **Goal:** Install Python, necessary tools, and run a specific Python script that interacts with an AI model (Microsoft Phi4-mini through Ollama).
+
+The application can be launched through a terminal:
+
+![Screenshot of the terminal window showing the installation and running of the Python LLM script with Ollama,  Langchain, Faiss, and Gradio](./images/local-llm-rag-langchain-ollama-faiss-gradio.png)
+
+After running the Python script, you can interact with the RAG system through a web interface (with `rag_script_ui.py`):
+
+![Screenshot of the web interface for the RAG system](./images/local-llm-rag-langchain-ollama-faiss-gradio.png)
 
 ## Phase 1: Install Necessary Software
 
@@ -52,7 +60,7 @@
     * Copy the Python code provided in the previous answer.
     * Open VS Code. Go to `File > New Text File`.
     * Paste the Python code into the new file.
-      * Choose either `rag_script.py` for the shortest possible code, or `rag_script_complete.py` for an extended code that also includes error handling. The extended UI version that we will be using later is `rag_script_ui.py`. 
+      * Choose either `rag_script.py` for the shortest possible code, or `rag_script_complete.py` for an extended code that also includes error handling. The extended UI version that we will be using later is `rag_script_ui.py`.
     * Go to `File > Save As...`.
     * Navigate *into* the `python-rag-project` folder you created.
     * Save the file with a `.py` extension, for example, `rag_script.py`.

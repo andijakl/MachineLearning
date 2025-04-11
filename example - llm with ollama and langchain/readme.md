@@ -1,4 +1,4 @@
-# Instructions for Setting Up and Running a Simple Python LLM Script with Ollama
+# Instructions for Setting Up and Running a Simple Python LLM Script with Ollama and Langchain
 
 **Goal:** Install Python, necessary tools, and run a basic Python script that sends a user's prompt directly to an AI model (Microsoft Phi4-mini through Ollama) and displays the response.
 
