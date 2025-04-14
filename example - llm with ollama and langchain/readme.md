@@ -143,12 +143,18 @@ The following screenshot shows how installing and running the script looks like 
 
 ## Phase 5: Extended Example: Multimodal LLM
 
+In this optional part, you can also test multimodal capabilities of modern LLMs by letting it analyze an image you provide. This repository contains two AI-generated images you can use for this purpose ([Squat exercise](./squat-chatgpt.png), [Brain tumor](./mrt-tumor-chatgpt.png)). You can also use any other image you have on your computer.
+
+This screenshot shows the analysis of both images as performed by the `gemma3:12b` model:
+
+![Screenshot of the question answering of gemma3 based on the two provided sample images.](./images/local-multimodal-llm-image-descriptions-ollama-langchain.png)
+
 ### Step 13: Save the Multimodal Python Script
 
 1. In a similar way as with the llm.py script, create a new file in the `simple-llm-project` folder and name it `llm-multimodal.py`.
 2. Copy and paste the code provided for `llm-multimodal.py` into this new file, and save it.
 3. *Note:* The multimodal script requires an image file to work with. You can use any image file you have on your computer. Make sure to note the path to the image file, as you'll need it in the next step. You can place the image file in the same folder as the script for convenience.
-   
+
 ### Step 14: Run the Multimodal Python Script
 
 1. **Make sure your virtual environment is still active** in the VS Code terminal (you see `(venv)`).
@@ -157,7 +163,7 @@ The following screenshot shows how installing and running the script looks like 
     ```bash
     ollama pull gemma3:12b
     ```
-    
+
     * The example uses the 12b parameter model from Ollama, which is around 8GB in size. If the model is too lage for your computer, you can also use the `gemma3:4b` model.
 3. **In the VS Code Terminal**, type the following command and press Enter:
 
