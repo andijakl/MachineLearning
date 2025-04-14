@@ -2,6 +2,11 @@
 
 **Goal:** Install Python, necessary tools, and run a basic Python script that sends a user's prompt directly to an AI model (Microsoft Phi4-mini through Ollama) and displays the response.
 
+This example contains two parts:
+
+1. `llm.py`: A simple Python script that uses the `langchain_ollama` library to interact with the Ollama AI model.
+2. `llm-multimodal.py`: An extended version that allows asking a question about a local image file for a multimodal AI model.
+
 The following screenshot shows how installing and running the script looks like in the terminal window:
 
 ![Screenshot of the terminal window showing the installation and running of the Python LLM script with Ollama and Langchain](./images/local-llm-with-ollama-langchain.png)
@@ -135,6 +140,35 @@ The following screenshot shows how installing and running the script looks like 
     * "LLM ready! Enter your prompt (or type 'exit' to quit):"
 4. **Interact:** Type any question or prompt (e.g., "What is the capital of Austria?") and press Enter. The script will show "Thinking..." and then print the answer generated directly by the AI model.
 5. **Exit:** Type `exit` and press Enter when you are finished.
+
+## Phase 5: Extended Example: Multimodal LLM
+
+### Step 13: Save the Multimodal Python Script
+
+1. In a similar way as with the llm.py script, create a new file in the `simple-llm-project` folder and name it `llm-multimodal.py`.
+2. Copy and paste the code provided for `llm-multimodal.py` into this new file, and save it.
+3. *Note:* The multimodal script requires an image file to work with. You can use any image file you have on your computer. Make sure to note the path to the image file, as you'll need it in the next step. You can place the image file in the same folder as the script for convenience.
+   
+### Step 14: Run the Multimodal Python Script
+
+1. **Make sure your virtual environment is still active** in the VS Code terminal (you see `(venv)`).
+2. Pull a multimodal model from Ollama. In the VS Code terminal, type the following command and press Enter:
+
+    ```bash
+    ollama pull gemma3:12b
+    ```
+    
+    * The example uses the 12b parameter model from Ollama, which is around 8GB in size. If the model is too lage for your computer, you can also use the `gemma3:4b` model.
+3. **In the VS Code Terminal**, type the following command and press Enter:
+
+    ```bash
+    python llm-multimodal.py
+    ```
+
+4. **Observe:** The script will start running. You should see output messages similar to the previous script, but it will also ask for the path to the image file you want to analyze.
+   * To use one of the provided AI-generated example images:
+     * *squat-chatgpt.png:* "Which exercise is the person performing?"
+     * *mrt-tumor-chatgpt.png:* "What medical condition is visible in the image?"
 
 ## Troubleshooting Tips
 
