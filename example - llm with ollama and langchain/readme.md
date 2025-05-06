@@ -23,7 +23,7 @@ The following screenshot shows how installing and running the script looks like 
 6. **Wait:** Let the installation complete.
 7. **Verify (Optional but Recommended):**
     * Open the Windows Start Menu, type `cmd`, and press Enter to open the Command Prompt.
-    * Type `python --version` and press Enter. You should see the Python version you just installed (e.g., `Python 3.12.9`).
+    * Type `python --version` and press Enter. You should see the Python version you just installed (e.g., `Python 3.13`).
     * Type `pip --version` and press Enter. You should see the pip version (pip is Python's package installer).
     * If these commands don't work, the "Add to PATH" step might have been missed. Re-install Python, ensuring the box is checked.
 
