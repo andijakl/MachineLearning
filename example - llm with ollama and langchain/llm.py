@@ -1,6 +1,6 @@
 # --- Core LangChain Component ---
 # We only need the Ollama integration
-from langchain_ollama import OllamaLLM
+from langchain_ollama import OllamaLLM as Ollama
 
 # --- Configuration ---
 # Specify the Ollama model you want to use
@@ -15,7 +15,7 @@ print("Initializing LLM...")
 # This creates an object to interact with the specified Ollama model
 # It assumes Ollama is running locally on the default port
 try:
-    llm = OllamaLLM(model=OLLAMA_MODEL)
+    llm = Ollama(model=OLLAMA_MODEL)
     # Optional: Do a quick test invocation to ensure connection
     # print(llm.invoke("Hello!"))
     print("LLM initialized successfully.")

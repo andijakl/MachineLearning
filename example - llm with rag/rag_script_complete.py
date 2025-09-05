@@ -19,7 +19,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 
 # The Ollama language model
-from langchain_ollama import OllamaLLM
+from langchain_ollama import OllamaLLM as Ollama
 
 # The prompt template structures how we ask the LLM
 from langchain_core.prompts import ChatPromptTemplate
@@ -127,7 +127,7 @@ print("Vector store created.")
 # --- 4. Initialize the LLM ---
 print(f"Initializing Ollama LLM ('{OLLAMA_MODEL}')...")
 try:
-    llm = OllamaLLM(model=OLLAMA_MODEL)
+    llm = Ollama(model=OLLAMA_MODEL)
     # Optional: A quick test to see if Ollama connection works
     # llm.invoke("hello")
 except Exception as e:
