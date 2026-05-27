@@ -1,14 +1,12 @@
 import os  # To interact with the file system (list files)
 
 # --- Core LangChain Components ---
-from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import FAISS
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain.chains import create_retrieval_chain
+from langchain_core.vectorstores import InMemoryVectorStore
+from pypdf import PdfReader
 
 # --- Configuration ---
 SOURCE_DIRECTORY = "source_docs"  # Folder with your PDF files
@@ -17,37 +15,61 @@ CHUNK_OVERLAP = 50
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 OLLAMA_MODEL = "phi4-mini"
 
-print(f"--- Simple RAG Demo ---")
+print("--- Simple RAG Demo ---")
 print(f"Using Ollama model: {OLLAMA_MODEL}")
 print(f"Looking for PDFs in: '{SOURCE_DIRECTORY}'")
 
-# --- 1. Load Documents ---
-all_docs = []
-# Find and load all PDF files in the source directory
-for filename in os.listdir(SOURCE_DIRECTORY):
-    if filename.lower().endswith(".pdf"):
-        pdf_path = os.path.join(SOURCE_DIRECTORY, filename)
-        print(f"  Loading {filename}...")
-        loader = PyPDFLoader(pdf_path)
-        docs_from_pdf = loader.load()
-        all_docs.extend(docs_from_pdf)  # Add pages from this PDF to the list
 
-print(f"Loaded {len(all_docs)} pages total from PDF(s).")
+def load_pdf_texts(source_directory):
+    pdf_texts = []
+    pdf_metadatas = []
+
+    for filename in os.listdir(source_directory):
+        if not filename.lower().endswith(".pdf"):
+            continue
+
+        pdf_path = os.path.join(source_directory, filename)
+        print(f"  Loading {filename}...")
+        pdf_text = "\n".join(page.extract_text() or "" for page in PdfReader(pdf_path).pages)
+        pdf_text = pdf_text.strip()
+        if not pdf_text:
+            continue
+
+        pdf_texts.append(pdf_text)
+        pdf_metadatas.append({"source": pdf_path})
+
+    return pdf_texts, pdf_metadatas
+
+
+def format_context(documents):
+    formatted_chunks = []
+    for doc in documents:
+        source_name = os.path.basename(doc.metadata.get("source", "Unknown"))
+        formatted_chunks.append(f"Source: {source_name}\n{doc.page_content}")
+
+    return "\n\n".join(formatted_chunks)
+
+# --- 1. Load Documents ---
+pdf_texts, pdf_metadatas = load_pdf_texts(SOURCE_DIRECTORY)
+
+print(f"Loaded {len(pdf_texts)} PDF(s).")
 
 # --- 2. Split Documents ---
 print("Splitting documents into chunks...")
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP
 )
-split_chunks = text_splitter.split_documents(all_docs)
+split_chunks = text_splitter.create_documents(pdf_texts, metadatas=pdf_metadatas)
 print(f"Split into {len(split_chunks)} chunks.")
 
 # --- 3. Create Embeddings & Vector Store ---
 # Embeddings turn text chunks into numerical vectors
 print("Creating embeddings and vector store (may take a moment)...")
 embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
-# FAISS stores the chunks and their embeddings for fast searching
-vector_store = FAISS.from_documents(documents=split_chunks, embedding=embeddings)
+# InMemoryVectorStore keeps the example simple while still supporting retrieval.
+vector_store = InMemoryVectorStore.from_documents(
+    documents=split_chunks, embedding=embeddings
+)
 print("Vector store created.")
 
 # --- 4. Initialize LLM ---
@@ -73,12 +95,6 @@ prompt = ChatPromptTemplate.from_template(prompt_template)
 # Retriever: Gets relevant chunks from the vector store
 retriever = vector_store.as_retriever()
 
-# Combine Documents Chain: Formats prompt + docs for the LLM
-combine_docs_chain = create_stuff_documents_chain(llm, prompt)
-
-# Retrieval Chain: Ties retriever and combine_docs_chain together
-retrieval_chain = create_retrieval_chain(retriever, combine_docs_chain)
-
 print("\nRAG system ready!")
 
 # --- 6. Ask Questions Loop ---
@@ -90,11 +106,18 @@ while True:
         continue
 
     print("Thinking...")
-    # Use the RAG chain to get an answer
-    response = retrieval_chain.invoke({"input": query})
+    retrieved_docs = retriever.invoke(query)
+    context = format_context(retrieved_docs)
+    prompt_value = prompt.invoke(
+        {
+            "context": context or "No relevant context was retrieved.",
+            "input": query,
+        }
+    )
+    answer = llm.invoke(prompt_value)
 
     print("\nAnswer:")
-    print(response["answer"])
+    print(answer)
     print("-" * 50)
 
 print("Goodbye!")

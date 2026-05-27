@@ -1,332 +1,296 @@
-# Lab: Modify and Extend the RAG Chatbot with Ollama, Langchain, and Gradio
+# Lab: Modify and Extend the RAG Chatbot with Ollama, LangChain, and Gradio
 
 These exercises will help you understand the [provided Python script with LLMs & RAG](https://github.com/andijakl/MachineLearning/tree/main/example%20-%20llm%20with%20rag) by making small, manageable changes. You'll get a feel for how the different parts work together without needing deep ML theory.
 
-For each of the exercise sets, summarize your main findings and any challenges you faced (~ 1 paragraph per set). Upload your modified script and your document to the course repository when you're done.
+For each exercise set, summarize your main findings and any challenges you faced in about one paragraph. Upload your modified script and summary document to the course repository when you are done.
 
-**Prerequisites:**
+**Prerequisites**
 
-1. **Python Installed:** You need Python 3 installed on your system.
-2. **Libraries Installed:** You need to install the libraries mentioned in the script. Open your terminal or command prompt and run:
+1. **Python 3 installed:** You need a working Python 3 installation.
+2. **Dependencies installed:** Use the project dependency file instead of typing package names manually.
 
     ```bash
-    pip install gradio langchain-community langchain-text-splitters langchain-huggingface langchain-core langchain faiss-cpu ollama langchain-ollama pypdf sentence-transformers
+    python -m pip install -r requirements.txt
     ```
 
-    *(Note: `faiss-cpu` is for CPU usage. If you have a compatible GPU and C++ build tools, you might use `faiss-gpu`, but `faiss-cpu` is easier to start with.)*
-3. **Ollama Running:** You need Ollama installed and running in the background with the model specified in the script (default: `phi4-mini`) pulled.
+    If your system uses `python3` instead of `python`, run:
+
+    ```bash
+    python3 -m pip install -r requirements.txt
+    ```
+
+3. **Ollama running:** Ollama must be installed and running in the background, and the model used in the script must be pulled.
     * Install Ollama from [https://ollama.com/](https://ollama.com/)
-    * Run `ollama pull phi4-mini` in your terminal (or whichever model you intend to use).
-    * Make sure the Ollama application or background service is running.
-4. **Source Documents:** Create a folder named `source_docs` in the same directory as the Python script and place at least one PDF file inside it.
-5. **The Script:** Have the `rag_script_ui.py` file saved and ready to edit.
+    * Run `ollama pull phi4-mini`
+    * Make sure the Ollama app or background service is running before you start the Python script
+4. **Source documents:** Create a folder named `source_docs` in the same directory as the Python script and place at least one PDF inside it.
+5. **Starter script:** Use `rag_script_ui.py` as your starting point.
 
-**General Instructions:**
+**General Instructions**
 
-* **Backup First:** Before making changes, save a copy of the original `rag_script_ui.py` file so you can always go back!
-* **Read the Comments:** The script has comments (`#`) explaining what each section does. Read them carefully.
-* **Small Changes:** Make one change at a time and test it. This makes it easier to find errors.
-* **Observe the Output:** Pay attention to the messages printed in the terminal when you run the script. They tell you what's happening.
+* **Backup first:** Save a copy of the original `rag_script_ui.py` before editing.
+* **Change one thing at a time:** Small steps are easier to test and debug.
+* **Watch the terminal output:** The script prints useful progress information while loading files, chunking text, and answering questions.
+* **Test often:** Run the script after each exercise and check both the terminal and the Gradio UI.
 * **Experiment:** Don't be afraid to try things! The worst that usually happens is you get an error message, which is part of learning.
 
 ---
 
 ## Exercise Set 1: Configuration Tweaks (Easy)
 
-These tasks involve changing predefined settings.
+These tasks focus on changing existing settings.
 
-1. **Adjust Text Chunking:**
-    * **Goal:** Experiment with how the PDF text is split into smaller pieces. Larger chunks might keep more context together but could be too big for the model. Smaller chunks are faster to process but might lose context.
+1. **Adjust text chunking**
+    * **Goal:** Experiment with how the document text is split into smaller pieces. Larger chunks preserve more context, while smaller chunks are more focused.
     * **How:**
-        * Find the lines: `CHUNK_SIZE = 500` and `CHUNK_OVERLAP = 50`.
-        * Try changing `CHUNK_SIZE` (e.g., to `700` or `300`).
-        * Try changing `CHUNK_OVERLAP` (e.g., to `100` or `25`). Overlap helps keep context between chunks.
-    * **Test:** Run the script. Observe the printed message "Split into X chunks." Does the number of chunks change as you expect? Does changing these values affect the quality or relevance of the answers you get in the Gradio app (this might be subtle)?
+        * Find `CHUNK_SIZE = 500` and `CHUNK_OVERLAP = 50`.
+        * Try a larger chunk size such as `700`.
+        * Try a smaller chunk size such as `300`.
+        * Also experiment with overlap values like `100` or `25`.
+    * **Test:** Run the script and compare the printed `Split into X chunks.` message. Then ask the same question in the Gradio UI and observe whether the answer changes.
 
-2. **Use a Different Ollama Model:**
-    * **Goal:** See how a different language model affects the answers.
-    * **Prerequisites:** You need to have another model pulled in Ollama (e.g., `ollama pull gemma3:1b`).
+2. **Use a different Ollama model**
+    * **Goal:** Compare how different local models answer the same question.
     * **How:**
-        * Find the line: `OLLAMA_MODEL = "gemma3:1b"`
-        * Change `"phi4-mini"` to the name of another model you have pulled (e.g., `"gemma3:1b"`).
-    * **Test:** Run the script. Does it initialize the new model? Ask the same question you asked before. Is the answer different in style, length, or accuracy? Does the Gradio interface description update?
+        * Find `OLLAMA_MODEL = "phi4-mini"`.
+        * Replace it with another model you have already pulled, for example `gemma3:1b`.
+    * **Test:** Run the script again. Does the new model initialize correctly? Does the style or quality of the answer change? Does the UI description update?
 
 ---
 
 ## Exercise Set 2: User Interface Customization (Easy)
 
-These tasks involve changing how the Gradio web interface looks and feels.
+These tasks change the Gradio interface.
 
-1. **Change the Title and Description:**
-    * **Goal:** Make the web page title and description more specific or user-friendly.
+1. **Change the title and description**
+    * **Goal:** Make the interface feel more specific or user-friendly.
     * **How:**
         * Find the `gr.Interface(...)` block near the end of the script.
-        * Modify the `title="..."` argument.
-        * Modify the `description="..."` argument.
-    * **Test:** Run the script and open the Gradio interface in your browser. Do you see your new title and description?
+        * Edit `title="..."`.
+        * Edit `description="..."`.
+    * **Test:** Run the script and open the Gradio app. Are your changes visible?
 
-2. **Customize Input/Output Labels:**
-    * **Goal:** Change the text labels displayed above the question input box and the answer output box.
+2. **Customize the input and output labels**
+    * **Goal:** Rename the text boxes in the UI.
     * **How:**
-        * Inside `gr.Interface(...)`, find the `inputs=gr.Textbox(...)` and `outputs=gr.Textbox(...)` lines.
-        * Change the `label="..."` argument within each `gr.Textbox`. For example, change `label="Your Question"` to `label="Ask me about the documents:"`.
-    * **Test:** Run the script and check the Gradio interface. Are the labels updated?
+        * In `inputs=gr.Textbox(...)`, change the `label` value.
+        * In `outputs=gr.Textbox(...)`, change the `label` value.
+    * **Test:** Run the script and confirm the labels have changed.
 
-3. **Adjust Text Box Sizes:**
-    * **Goal:** Make the input or output boxes taller or shorter.
+3. **Adjust textbox sizes**
+    * **Goal:** Make the question box or answer box taller or shorter.
     * **How:**
-        * Inside the `gr.Textbox` definitions for `inputs` and `outputs`, find the `lines=...` argument.
-        * Change the number (e.g., make the input `lines=2` or the output `lines=10`).
-    * **Test:** Run the script. Are the text boxes resized in the Gradio interface?
+        * Change the `lines=...` values inside the two `gr.Textbox(...)` definitions.
+    * **Test:** Run the script and check whether the text boxes resize as expected.
 
 ---
 
 ## Exercise Set 3: Modifying the Prompt (Easy-Medium)
 
-This involves changing the instructions given to the LLM.
+This set changes the instructions sent to the LLM.
 
-1. **Change the LLM's Instructions:**
-    * **Goal:** Tell the LLM to answer in a specific way (e.g., be more concise, or act like an expert).
+1. **Change the LLM instructions**
+    * **Goal:** Make the model answer in a different style, for example more briefly or more formally.
     * **How:**
-        * Find the multi-line string variable `prompt_template = """..."""`.
-        * Modify the text *before* the `Context:` section. For example, change `Answer the following question based only on the provided context:` to `Be very brief and answer the following question using only the provided context:`.
-        * You could also change the text *after* the `Question:` section, before `Answer:`.
-    * **Test:** Run the script. Ask a question. Does the LLM's answer style change based on your new instructions? (e.g., Does it become shorter if you asked it to be brief?)
+        * Find the multi-line string stored in `prompt_template`.
+        * Change the text before `Context:`.
+        * For example, replace `Answer the following question based only on the provided context:` with `Be very brief and answer the question using only the provided context:`.
+    * **Test:** Run the script and ask the same question as before. Does the answer style change?
 
 ---
 
 ## Exercise Set 4: Adding Simple Code Logic (Medium)
 
-These tasks require adding or modifying small amounts of Python code.
+These tasks add small debugging or inspection features.
 
-1. **Add More Print Statements for Debugging:**
-    * **Goal:** Understand the data flow better by printing intermediate results to the terminal.
+1. **Add more print statements for debugging**
+    * **Goal:** Understand the flow of data through the system.
     * **How:**
-        * *Print Number of PDFs Found:* Add `print(f"Found {len(os.listdir(SOURCE_DIRECTORY))} items in source directory.")` before the `for` loop in Step 1. Does it show the correct count? (This counts all items, not just PDFs). Modify it to count only PDFs if you like!
-        * *Print First Chunk:* After the line `split_chunks = text_splitter.split_documents(all_docs)`, add `print("--- First Chunk Example ---")` and `print(split_chunks[0].page_content)` to see what the first piece of text looks like.
-        * *Print Retrieved Context:* Inside the `ask_rag_system` function, before the `answer = response.get(...)` line, add `print(f"Retrieved Context: {response.get('context')}")`. This shows you exactly what information the LLM is using to answer the question. *Note: This might print a lot of text!*
-    * **Test:** Run the script and observe the terminal output. Do the new print statements appear? Do they help you understand what's happening?
+        * **Print number of PDFs found:** inside `load_pdf_texts(...)`, add a print statement that counts only `.pdf` files in the folder.
+        * **Print the first chunk:** after this line:
+
+            ```python
+            split_chunks = text_splitter.create_documents(pdf_texts, metadatas=pdf_metadatas)
+            ```
+
+            add:
+
+            ```python
+            print("--- First Chunk Example ---")
+            print(split_chunks[0].page_content)
+            ```
+
+        * **Print the retrieved context:** inside `ask_rag_system(...)`, right after `retrieved_docs = retriever.invoke(question)`, add:
+
+            ```python
+            print("--- Retrieved Context ---")
+            print(format_context(retrieved_docs))
+            ```
+
+    * **Test:** Run the script and inspect the terminal output. Do these extra prints help you understand what is happening?
 
 ---
 
 ## Exercise Set 5: Simple Extension (Medium)
 
-This requires understanding the loading process a bit more.
+This set extends the file loading step.
 
-1. **Add Support for `.txt` Files:**
-    * **Goal:** Allow the script to load text from `.txt` files in addition to `.pdf` files.
+1. **Add support for `.txt` files**
+    * **Goal:** Load plain text files from `source_docs` in addition to PDFs.
     * **How:**
-        * You'll need a new loader. Add this import at the top: `from langchain_community.document_loaders import TextLoader`
-        * Modify the `for` loop in Step 1 (Load Documents). Change the `if` condition and add an `elif` (else if):
+        * Rename `load_pdf_texts(...)` to something like `load_source_texts(...)`.
+        * Update the loop so it handles both `.pdf` and `.txt` files.
+        * For `.txt` files, read the file directly with Python instead of using a deprecated LangChain community loader.
 
-            ```python
-            # --- 1. Load Documents ---
-            all_docs = []
-            # Find and load all PDF and TXT files in the source directory
-            for filename in os.listdir(SOURCE_DIRECTORY):
-                file_path = os.path.join(SOURCE_DIRECTORY, filename)
+        One possible approach is:
+
+        ```python
+        def load_source_texts(source_directory):
+            texts = []
+            metadatas = []
+
+            for filename in os.listdir(source_directory):
+                file_path = os.path.join(source_directory, filename)
+
                 if filename.lower().endswith(".pdf"):
                     print(f"  Loading PDF: {filename}...")
-                    loader = PyPDFLoader(file_path)
-                    docs_from_file = loader.load()
-                    all_docs.extend(docs_from_file)
-                elif filename.lower().endswith(".txt"): # <-- ADD THIS PART
+                    text = "\n".join(
+                        page.extract_text() or "" for page in PdfReader(file_path).pages
+                    )
+                elif filename.lower().endswith(".txt"):
                     print(f"  Loading TXT: {filename}...")
-                    loader = TextLoader(file_path) # Use TextLoader
-                    docs_from_file = loader.load()
-                    all_docs.extend(docs_from_file) # <-- ADD THIS PART
+                    with open(file_path, "r", encoding="utf-8") as file:
+                        text = file.read()
+                else:
+                    continue
 
-            print(f"Loaded {len(all_docs)} pages/documents total from PDF(s)/TXT(s).") # Update print message
-            ```
+                text = text.strip()
+                if not text:
+                    continue
 
-    * **Test:** Add a `.txt` file with some text into your `source_docs` folder. Run the script. Does it print that it's loading the `.txt` file? Can you ask questions about the content of the `.txt` file in the Gradio app?
+                texts.append(text)
+                metadatas.append({"source": file_path})
 
-Okay, here are additional exercise tasks building upon the previous ones, designed for students new to ML and Python but ready to explore a bit more.
+            return texts, metadatas
+        ```
+
+    * **Test:** Add a `.txt` file to `source_docs`, run the script, and confirm you can ask questions about its contents.
+
+---
 
 ## Exercise Set 6: Exploring the RAG Components (Medium-Hard)
 
-1. **Try a Different Embedding Model:**
-    * **Goal:** See how using a different model for turning text into numbers (embeddings) might affect the search results. Some models are better for specific tasks (like question answering).
-    * **How:**
-        * Find the line: `EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"`
-        * Replace the model name string with another one from the Hugging Face Hub that's compatible with `HuggingFaceEmbeddings`. Good options to try:
-            * `"sentence-transformers/paraphrase-MiniLM-L3-v2"` (often good for finding similar meanings)
-            * `"sentence-transformers/multi-qa-MiniLM-L6-cos-v1"` (trained specifically for question answering retrieval)
-        * You can browse more models here: [https://huggingface.co/models?library=sentence-transformers](https://huggingface.co/models?library=sentence-transformers)
-    * **Test:** Run the script. The first time you use a new model, the script will need to download it (this might take a minute or two, watch the terminal). After it starts, ask the same few questions you used before. Do the answers seem more or less relevant? Does the "Creating embeddings and vector store" step take a different amount of time? *Note: The difference in answer quality might be subtle!*
+These tasks focus on retrieval behavior.
 
-2. **See Retrieved Document Sources:**
-    * **Goal:** Print out exactly which parts of your documents (source file and page number) the system retrieved to use as context for answering your question. This helps understand *why* you got a particular answer.
-    * **How:** Modify the `ask_rag_system` function to access the `context` part of the response from the `retrieval_chain`.
-        * Inside the `ask_rag_system` function, find the `try...except` block.
-        * *After* the line `response = retrieval_chain.invoke({"input": question})`, change the code to the following:
+1. **Try a different embedding model**
+    * **Goal:** Compare how different embedding models affect retrieval quality.
+    * **How:**
+        * Find `EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"`.
+        * Replace it with another sentence-transformer model, for example:
+            * `"sentence-transformers/paraphrase-MiniLM-L3-v2"`
+            * `"sentence-transformers/multi-qa-MiniLM-L6-cos-v1"`
+    * **Test:** Run the script and ask the same questions as before. Do the retrieved answers feel more or less relevant? Does startup time change?
+
+2. **See which source files were retrieved**
+    * **Goal:** Print the source files of the retrieved chunks so you can better understand why the model answered the way it did.
+    * **How:**
+        * Inside `ask_rag_system(...)`, after `retrieved_docs = retriever.invoke(question)`, add code similar to this:
 
         ```python
-        # Extract context and answer from the response
-        context_docs = response.get("context", [])
-        answer = response.get("answer", "Sorry, I couldn't generate an answer.")
+        print("\n--- Sources Used by the RAG System ---")
+        seen_sources = set()
 
-        print(f"Generated answer: {answer[:100]}...") # Log snippet to console
-
-        # --- Now print the sources using the extracted 'context_docs' ---
-        sources_info = set() # Use a set to store unique source strings
-        if context_docs:
-            print("\n--- Sources Used by the RAG System ---")
-            for doc in context_docs:
-                source_file = doc.metadata.get('source', 'Unknown Source')
-                page_number = doc.metadata.get('page', 'N/A')
-                # Page numbers are often 0-indexed, so add 1 for human readability
-                display_page = page_number + 1 if isinstance(page_number, int) else 'N/A'
-                sources_info.add(f"  - File: {source_file}, Page: {display_page}")
-
-            # Print the unique sources, sorted for consistency
-            for info_line in sorted(list(sources_info)):
-                print(info_line)
-        else:
-            print("--- No specific sources were retrieved ---")
-        # --- End of sources printing ---
-
-        return answer # Return the extracted answer
+        for doc in retrieved_docs:
+            source_file = doc.metadata.get("source", "Unknown Source")
+            if source_file not in seen_sources:
+                print(f"- {source_file}")
+                seen_sources.add(source_file)
         ```
 
-    * **Test:** Run the script and ask a question in the Gradio interface. Now, look at the **terminal window** where you ran the script. Below the "Generated answer..." log, you should see a list starting with "--- Sources Used...", showing the file(s) and page number(s) that provided the context. Does this help you verify if the system is looking at the right parts of your documents?
+    * **Test:** Run the script, ask a question, and inspect the terminal output. Do the listed source files make sense?
 
-3. **Adjust Number of Retrieved Chunks (`k`):**
-    * **Goal:** Control how many text chunks (pieces of your documents) are retrieved from the vector database to be fed to the language model. Retrieving more chunks gives the LLM more context, but might also include irrelevant information or slow things down.
+3. **Adjust the number of retrieved chunks (`k`)**
+    * **Goal:** Control how many chunks are retrieved before the prompt is built.
     * **How:**
-        * Find the line where the `retriever` is created (in Step 5):
-            `retriever = vector_store.as_retriever()`
-        * Modify this line to include `search_kwargs`. For example, to retrieve the top 3 most relevant chunks:
-            `retriever = vector_store.as_retriever(search_kwargs={"k": 3})`
-        * Try changing the value of `k` (e.g., to `2`, `5`, or maybe even `1`).
-    * **Test:** Run the script with a specific `k` value. Ask a question. Observe the answer. Now, change `k` to a different value, restart the script, and ask the same question. Does the answer change? If you also completed Exercise 2 (See Retrieved Document Sources), does the number of sources printed in the terminal match the `k` value you set?
+        * Add a new configuration value near the top of the file:
+
+            ```python
+            RETRIEVAL_K = 3
+            ```
+
+        * Change the retriever creation from:
+
+            ```python
+            retriever = vector_store.as_retriever()
+            ```
+
+            to:
+
+            ```python
+            retriever = vector_store.as_retriever(search_kwargs={"k": RETRIEVAL_K})
+            ```
+
+        * Try values like `1`, `2`, `3`, or `5`.
+    * **Test:** Run the script, ask the same question multiple times with different `k` values, and compare the answers.
 
 ---
 
 ## Exercise Set 7: Improving Robustness and User Experience (Medium)
 
-1. **Add Basic Ollama Connection Check on Startup:**
-    * **Goal:** Make the script give a friendly error message and exit cleanly if it can't connect to the Ollama service when it starts, instead of crashing later.
-    * **How:** Wrap the LLM initialization (Step 4) in a `try...except` block to catch potential connection errors. We'll also add a quick test call to the LLM.
-        * Add this import near the top of the script: `import sys` (to allow exiting the script). You might also need `requests` library's exceptions if you want to be more specific, but a general `Exception` catch works too. Let's try a general one first.
-        * Replace the entire "Initialize LLM" section (Step 4) with this:
+1. **Add a basic Ollama startup check**
+    * **Goal:** Show a helpful error message if Ollama is not reachable or the model is missing.
+    * **How:**
+        * Add `import sys` near the top of the file.
+        * Wrap the LLM initialization section in a `try...except` block.
+        * Keep using `validate_model_on_init=True`, because that already checks the model on startup.
+
+        Example:
 
         ```python
-        # --- 4. Initialize LLM ---
         print(f"Initializing LLM: {OLLAMA_MODEL}...")
-        llm = None # Initialize llm variable to None
         try:
-            # Assumes Ollama is running and the model is pulled
-            llm_instance = OllamaLLM(model=OLLAMA_MODEL)
-            # Try a quick test interaction to verify connection and model access
-            print("Verifying LLM connection...")
-            llm_instance.invoke("Respond with only 'ok'") # Simple test prompt
-            llm = llm_instance # Assign to the main llm variable if successful
-            print("LLM initialized and connection verified.")
-        except Exception as e:
-            print(f"\n--- FATAL ERROR ---")
-            print(f"Failed to initialize or connect to the Ollama LLM ({OLLAMA_MODEL}).")
-            print(f"Error details: {e}")
-            # Provide common troubleshooting tips
+            llm = OllamaLLM(model=OLLAMA_MODEL, validate_model_on_init=True)
+            print("LLM initialized.")
+        except Exception as error:
+            print("\n--- Startup Error ---")
+            print(error)
             print("\nTroubleshooting:")
-            print(f"1. Ensure the Ollama application or service is running.")
-            print(f"2. Check if the model '{OLLAMA_MODEL}' is pulled (e.g., run 'ollama list' in terminal).")
-            print(f"3. If the model is not pulled, run: ollama pull {OLLAMA_MODEL}")
-            print("Exiting script.")
-            sys.exit(1) # Exit the script with an error code
-
-        # Ensure llm is assigned before proceeding (should be caught by sys.exit otherwise)
-        if llm is None:
-             print("LLM initialization failed unexpectedly. Exiting.")
-             sys.exit(1)
-
-        # --- 5. Create RAG Chain --- (Script continues from here)
+            print("1. Make sure Ollama is running.")
+            print(f"2. Make sure the model exists: ollama pull {OLLAMA_MODEL}")
+            sys.exit(1)
         ```
 
-    * **Test:**
-        * Run the script while Ollama *is* running. It should print the verification message and continue normally.
-        * Stop the Ollama application/service. Run the Python script again. Does it print the "FATAL ERROR" message with troubleshooting tips and exit, instead of showing a more confusing error later?
-        * If you have Ollama running but try a model name in the script that you *haven't* pulled (e.g., `OLLAMA_MODEL = "no_such_model_here"`), run the script. Does the error message give you a hint that the model might not be found?
+    * **Test:** Stop Ollama and run the script again. Does the error message help you understand what went wrong?
 
-2. **Add a Clear Button to the UI**
-
-   * **Goal:** Add a button to the Gradio web interface that lets the user easily clear the question and answer text boxes, using a built-in feature of `gr.Interface`.
-   * **How:** You just need to add one parameter to the `gr.Interface` call.
-     * Find the line where the Gradio interface is created (Step 7):
+2. **Add a clear button to the UI**
+    * **Goal:** Add a button that clears both the question and answer boxes.
+    * **How:**
+        * Inside `gr.Interface(...)`, add:
 
         ```python
-        iface = gr.Interface(
-            fn=ask_rag_system,
-            inputs=gr.Textbox(...),
-            outputs=gr.Textbox(...),
-            title="Chat with Your Documents (RAG)",
-            description=f"...",
-            allow_flagging="never",
-        )
+        clear_btn="Clear Inputs"
         ```
 
-     * Add the `clear_btn` parameter inside the `gr.Interface(...)` call. Set its value to the text you want on the button, for example `"Clear Inputs"`.
+    * **Test:** Run the script, ask a question, then click the clear button. Do both text boxes clear?
 
-        ```python
-        iface = gr.Interface(
-            fn=ask_rag_system,
-            inputs=gr.Textbox(...),
-            outputs=gr.Textbox(...),
-            title="Chat with Your Documents (RAG)",
-            description=f"...",
-            allow_flagging="never",
-            clear_btn="Clear Inputs" # <-- ADD THIS LINE
-        )
-        ```
+3. **Change the UI theme**
+    * **Goal:** Experiment with Gradio's built-in themes.
+    * **How:**
+        * In this Gradio version, pass the theme when calling `launch(...)`.
+        * Change the launch call from:
 
-   * **Test:** Run the script. The Gradio interface should now have an extra button (likely below the input/output components) labelled "Clear Inputs".
-     * Type something in the question box and get an answer.
-     * Click the "Clear Inputs" button. Do both the question and answer boxes become empty?
+            ```python
+            iface.launch()
+            ```
 
-3. **Change the UI Theme**
+            to something like:
 
-   * **Goal:** Modify the visual appearance (colors, fonts, layout style) of the Gradio web interface using built-in themes.
-   * **How:** Add the `theme` parameter to the `gr.Interface` call and assign a theme object to it. Gradio comes with several pre-built themes.
-     * Find the line where the Gradio interface is created (Step 7):
+            ```python
+            iface.launch(theme=gr.themes.Soft())
+            ```
 
-        ```python
-        iface = gr.Interface(
-            fn=ask_rag_system,
-            inputs=gr.Textbox(...),
-            outputs=gr.Textbox(...),
-            title="Chat with Your Documents (RAG)",
-            description=f"...",
-            # You might have added clear_btn here
-            clear_btn="Clear Inputs",
-            allow_flagging="never",
-        )
-        ```
-
-     * Add the `theme=` parameter inside the `gr.Interface(...)` call. Set its value to one of Gradio's built-in theme objects. You'll need to use `gr.themes` followed by the theme name. Examples:
-       * `theme=gr.themes.Soft()`
-       * `theme=gr.themes.Glass()`
-       * `theme=gr.themes.Monochrome()`
-       * `theme=gr.themes.Default()` (This is the standard look if you don't specify a theme)
-
-        Your code might look like this:
-
-        ```python
-        import gradio as gr # Make sure gradio is imported
-
-        # ... other code ...
-
-        iface = gr.Interface(
-            fn=ask_rag_system,
-            inputs=gr.Textbox(...),
-            outputs=gr.Textbox(...),
-            title="Chat with Your Documents (RAG)",
-            description=f"...",
-            clear_btn="Clear Inputs",
-            allow_flagging="never",
-            theme=gr.themes.Soft()  # <-- ADD THIS LINE (choose your theme)
-        )
-        ```
-
-     * **Test:** Run the script. Open the Gradio interface in your browser. Does the appearance change according to the theme you selected? Try changing `gr.themes.Soft()` to `gr.themes.Glass()` or `gr.themes.Monochrome()` and restart the script to see the difference.
-
----
+        * Other built-in options include:
+            * `theme=gr.themes.Soft()`
+            * `theme=gr.themes.Glass()`
+            * `theme=gr.themes.Monochrome()`
+    * **Test:** Run the script and compare how the interface looks with different themes.

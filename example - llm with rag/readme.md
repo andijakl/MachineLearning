@@ -4,7 +4,7 @@
 
 The application can be launched through a terminal:
 
-![Screenshot of the terminal window showing the installation and running of the Python LLM script with Ollama,  Langchain, Faiss, and Gradio](./images/local-llm-rag-langchain-ollama-faiss-gradio.png)
+![Screenshot of the terminal window showing the installation and running of the Python LLM script with Ollama, LangChain, and Gradio](./images/local-llm-rag-langchain-ollama-gradio.png)
 
 After running the Python script, you can interact with the RAG system through a web interface (with `rag_script_ui.py`):
 
@@ -12,19 +12,41 @@ After running the Python script, you can interact with the RAG system through a 
 
 ## Phase 1: Install Necessary Software
 
+These instructions work on Windows, macOS, and Linux, but a few commands differ by operating system. Wherever that matters, the README now shows the platform-specific command.
+
 ### Step 1: Install Python
 
-1. **Download:** Open a web browser and go to the official Python website: [https://www.python.org/downloads/](https://www.python.org/downloads/)
-2. **Get Installer:** Click the button for the latest Python version for your OS (e.g., "Download Python 3.1x.x"). This will download an `.exe` installer file.
-3. **Run Installer:** Find the downloaded `.exe` file (usually in your `Downloads` folder) and double-click it.
-4. **IMPORTANT - Add to PATH:** In the first screen of the installer, **make sure to check the box** that says **"Add Python 3.x to PATH"** at the bottom. This is crucial for running Python from the command line easily.
-5. **Customize (Optional) or Install Now:** You can generally click **"Install Now"** for the default installation, which is fine for most users.
-6. **Wait:** Let the installation complete.
-7. **Verify (Optional but Recommended):**
-    * Open the Windows Start Menu, type `cmd`, and press Enter to open the Command Prompt.
-    * Type `python --version` and press Enter. You should see the Python version you just installed (e.g., `Python 3.13`).
-    * Type `pip --version` and press Enter. You should see the pip version (pip is Python's package installer).
-    * If these commands don't work, the "Add to PATH" step might have been missed. Re-install Python, ensuring the box is checked.
+1. **Install Python 3:** Open [https://www.python.org/downloads/](https://www.python.org/downloads/) and install a current Python 3 release for your operating system.
+    * **Windows:** Use the official installer. On the first screen, enable **Add Python to PATH**.
+    * **macOS:** Use the official installer from python.org, or install Python 3 with your package manager if you already use one.
+    * **Linux:** Install Python 3 and `venv` support using your distribution's package manager if they are not already present.
+2. **Verify the installation:** Open a terminal and run the command that matches your platform:
+
+    ```bash
+    python --version
+    ```
+
+    or, on systems where Python 3 is exposed as `python3`:
+
+    ```bash
+    python3 --version
+    ```
+
+3. **Verify pip:**
+
+    ```bash
+    python -m pip --version
+    ```
+
+    or:
+
+    ```bash
+    python3 -m pip --version
+    ```
+
+4. If Python or pip is not found:
+    * **Windows:** Re-run the installer and make sure **Add Python to PATH** is enabled. You might need to restart Windows or open a new terminal after installation.
+    * **macOS/Linux:** Make sure Python 3 is installed and available on your shell `PATH`.
 
 ### Step 2: Install the Python Extension in VS Code
 
@@ -34,105 +56,142 @@ After running the Python script, you can interact with the RAG system through a 
 
 ### Step 3: Install and Set Up Ollama
 
-1. **Download Ollama:** Go to [https://ollama.com/](https://ollama.com/) and click the "Download" button, then select "Download for Windows".
-2. **Run Installer:** Run the downloaded Ollama installer. Follow the prompts. Ollama typically runs as a background service. You might see an icon in your system tray (bottom right near the clock).
-3. **Pull the AI Model:** You need to tell Ollama to download the specific AI model the script uses.
-    * Open the Windows Command Prompt (`cmd`).
-    * Type the following command and press Enter (Replace `phi4-mini` with another model name if that's the specific model you intend to use and have confirmed exists):
+1. **Install Ollama:** Go to [https://ollama.com/](https://ollama.com/) and install Ollama for your operating system. Follow the instructions on their website.
+2. **Start Ollama:** Launch it once so the local service is available.
+3. **Pull the AI Model:** Open a terminal and run the following command to download the model used by the scripts:
 
-        ```bash
-        ollama pull phi4-mini
-        ```
+    ```bash
+    ollama pull phi4-mini
+    ```
 
-    * **Wait:** This will download the model, which can take some time depending on your internet speed. Wait for it to complete. You should see progress bars and eventually a "success" message.
-    * *Keep Ollama running in the background.* If you close the Ollama application window (if one appeared), the background service should still be active.
-    * *Restarting Ollama:* When you restart your computer, you may need to start the Ollama application again. Look for it in the Start Menu or system tray. You can also run `ollama list` in the Command Prompt to check if it's running and see the available models.
+4. **Verify Ollama is ready:**
+
+    ```bash
+    ollama list
+    ```
+
+    You should see `phi4-mini` in the output after the download finishes.
+
+5. Keep Ollama running in the background while you use the RAG scripts.
 
 ## Phase 2: Set Up the Project
 
-### Step 4: Create a Project Folder
+### Step 4: Get the Project Files
 
-1. **Create Folder:** Using the File Explorer / Finder, create a new folder somewhere you can easily find it (e.g., on your Desktop or in your Documents folder). Name it something descriptive, like `python-rag-project`.
+1. **Download or clone this repository** into a folder you can easily find.
+2. Open that extracted or cloned folder in VS Code.
 
-### Step 5: Add Project Files
+### Step 5: Add Your PDF Files
 
-1. **Save the Python Script:**
-    * Copy the Python code provided in the previous answer.
-    * Open VS Code. Go to `File > New Text File`.
-    * Paste the Python code into the new file.
-      * Choose either `rag_script.py` for the shortest possible code, or `rag_script_complete.py` for an extended code that also includes error handling. The extended UI version that we will be using later is `rag_script_ui.py`.
-    * Go to `File > Save As...`.
-    * Navigate *into* the `python-rag-project` folder you created.
-    * Save the file with a `.py` extension, for example, `rag_script.py`.
-2. **Add the PDFs:**
-    * Make sure you have at least one demo .pdf file that contains text for your RAG application.
-    * Create a new folder inside `python-rag-project` called `source_docs`.
-    * Copy or move your PDF files *directly into* the `source_docs` folder.
+1. Make sure you have at least one PDF file that contains text for your RAG application.
+2. Copy or move your PDF files directly into the `source_docs` folder inside this project.
+3. These are the three included Python scripts:
+    * `rag_script.py` is the minimal terminal example.
+    * `rag_script_complete.py` includes additional error handling.
+    * `rag_script_ui.py` provides the Gradio web interface.
 
 ## Phase 3: Set Up the Python Environment and Install Libraries
 
 ### Step 6: Open the Project in VS Code
 
 1. In VS Code, go to `File > Open Folder...`.
-2. Navigate to and select the `python-rag-project` folder. Click "Select Folder".
-3. You should now see your `rag_script.py` and the `source_docs` directory including your pdf files listed in the Explorer sidebar on the left.
+2. Navigate to and select the repository folder. Click "Select Folder".
+3. You should now see the Python scripts and the `source_docs` directory in the Explorer sidebar.
 
 ### Step 7: Open the VS Code Terminal
 
 1. In VS Code, go to the top menu and click `Terminal > New Terminal`.
-2. A terminal panel will open at the bottom of VS Code. It should automatically be running in your project folder (`python-rag-project`).
+2. A terminal panel will open at the bottom of VS Code. It should automatically be running in the project folder.
 
 ### Step 8: Create a Python Virtual Environment (Best Practice)
 
 * *Why?* This creates an isolated environment just for this project, so the libraries you install don't interfere with other Python projects or your main Python installation.
 
-1. **In the VS Code Terminal**, type the following command and press Enter:
+1. **In the VS Code Terminal**, create a virtual environment named `.venv`.
+
+    **Windows:**
 
     ```bash
-    python -m venv venv
+    python -m venv .venv
     ```
 
-    * This tells Python to create a virtual environment named `venv` inside your project folder. You might see a new `venv` folder appear in the VS Code Explorer sidebar.
+    **macOS / Linux:**
+
+    ```bash
+    python3 -m venv .venv
+    ```
+
+    If `python3` is not available but `python` points to Python 3, this also works:
+
+    ```bash
+    python -m venv .venv
+    ```
+
+2. You should see a new `.venv` folder appear in the project.
 
 ### Step 9: Activate the Virtual Environment
 
-* *Why?* You need to "turn on" the virtual environment so that when you install libraries, they go into the `venv` folder and not your global Python installation.
+* *Why?* You need to "turn on" the virtual environment so that when you install libraries, they go into the `.venv` folder and not your global Python installation.
 
-1. **In the VS Code Terminal**, type the following command and press Enter:
+1. **In the VS Code Terminal**, activate the virtual environment with the command for your shell and operating system.
 
-    ```bash
-    .\venv\Scripts\activate
+    **Windows PowerShell:**
+
+    ```powershell
+    .\.venv\Scripts\Activate.ps1
     ```
 
-2. You should see `(venv)` appear at the beginning of your terminal prompt line. This means the virtual environment is active! (e.g., `(venv) C:\Users\YourName\Documents\python-rag-project>`)
-    * *Note:* Every time you close and reopen VS Code or open a new terminal for this project, you'll need to run `.\venv\Scripts\activate` again.
-    * *Additional note:* VS Code might not show the virtual environment in the terminal prompt, with a pop-up informing you. This is normal. You can hover over the terminal tab to see the active environment.
-    * You might also see a question about which Python interpreter to use. If prompted, select the one that corresponds to your virtual environment (it should look like `venv\Scripts\python.exe`).
+    **Windows Command Prompt:**
+
+    ```bat
+    .\.venv\Scripts\activate.bat
+    ```
+
+    **macOS / Linux (bash, zsh, etc.):**
+
+    ```bash
+    source .venv/bin/activate
+    ```
+
+2. You should see `(.venv)` appear at the beginning of your terminal prompt. This means the virtual environment is active.
+3. Every time you open a new terminal for this project, activate the environment again.
+4. If VS Code prompts you to select a Python interpreter, choose the one inside `.venv`.
+5. **Windows PowerShell only:** if script execution is blocked, run this once in a PowerShell window and then retry activation:
+
+    ```powershell
+    Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+    ```
 
 ### Step 10: Install Required Python Libraries
 
 * *Why?* The Python script uses several external libraries (like `langchain`, `ollama`, `pypdf`, etc.) that need to be installed. `pip` is the tool used for this.
 
-1. **Make sure your virtual environment is active** (you see `(venv)` in the prompt, or see the environment if hovering over the pwsh / bash terminal tab).
+1. **Make sure your virtual environment is active** (you see `(.venv)` in the prompt, or VS Code shows that `.venv` is selected as the active interpreter).
 2. **In the VS Code Terminal**, copy and paste the following command and press Enter:
 
     ```bash
-    python -m pip install --upgrade --quiet langchain langchain-community langchain-text-splitters langchain-huggingface langchain-ollama pypdf sentence-transformers faiss-cpu
+    python -m pip install --upgrade pip
+    python -m pip install -r requirements.txt
     ```
 
-    * *Note:* If you see a warning about `pip` being out of date, you can ignore it for now. The script should still work with the version you have. But you're also free to update pip.
-3. **Wait:** This command tells `pip` to download and install all the necessary libraries into your `venv`. It might take a few minutes. You'll see download progress and installation messages. Ignore any warnings about `pip` version unless you encounter errors.
+3. **Wait:** This installs the dependencies listed in the checked-in `requirements.txt`, which is easier to maintain than repeating the package list inside the README.
 
 ## Phase 4: Run the Code
 
 ### Step 11: Ensure Ollama is Running
 
-1. Double-check that the Ollama application is running (look for its icon in the system tray or try running `ollama list` in a separate Command Prompt to see available models). If it's not running, start it from the Windows Start Menu.
+1. Double-check that the Ollama service is running:
+
+    ```bash
+    ollama list
+    ```
+
+2. If that command fails, start Ollama again using the normal method for your operating system.
 
 ### Step 12: Run the Python Script
 
-1. **Make sure your virtual environment is still active** in the VS Code terminal (you see `(venv)`).
-2. **In the VS Code Terminal**, type the following command and press Enter (replace `rag_script.py` with the actual name you saved your script as):
+1. **Make sure your virtual environment is still active** in the VS Code terminal (you see `(.venv)`).
+2. **In the VS Code Terminal**, run one of the included scripts. For the minimal terminal example:
 
     ```bash
     python rag_script.py
@@ -151,34 +210,36 @@ After running the Python script, you can interact with the RAG system through a 
 
 ## Phase 5: User Interface
 
-### Step 13: Installing Gradio
+### Step 13: Gradio Is Already Included
 
-1. In the VS Code terminal, run the following command to install Gradio, which will allow you to create a web interface for your RAG system:
+1. You do **not** need to install Gradio separately if you already ran:
 
     ```bash
-    python -m pip install gradio
+    python -m pip install -r requirements.txt
     ```
 
-2. Add the import statement for Gradio at the top of your script:
+2. You also do **not** need to modify the code manually. The repository already includes a ready-to-run Gradio example in `rag_script_ui.py`.
 
-    ```python
-    import gradio as gr
+### Step 14: Run the Web UI
+
+1. Start the UI with:
+
+    ```bash
+    python rag_script_ui.py
     ```
 
-### Step 14: Modify the Script for Gradio
-
-Use the updated code at the bottom of the `rag_script_ui.py` file. It contains the following additional steps compared to the original script:
-
-1. Replaces the `while True:` loop in the script with a function called `ask_rag_system(question)` to query the RAG system.
-2. Creates a Gradio interface using `gr.Interface()` to allow users to input questions and receive answers through a web interface.
-3. Calls `iface.launch()` to start the Gradio app, which will open in your web browser.
+2. Wait for Gradio to print a local URL in the terminal.
+3. Open that URL in your browser if it does not open automatically.
+4. Ask questions about the PDFs in `source_docs`.
 
 ## Troubleshooting Tips
 
-* **`python` or `pip` not recognized:** You likely missed the "Add Python 3.x to PATH" checkbox during Python installation. Reinstall Python carefully.
-* **`.\venv\Scripts\activate` error:** Make sure you are *inside* your `python-rag-project` folder in the terminal and that the `venv` folder exists. Check for typos.
-* **ModuleNotFoundError:** You might have forgotten to activate the virtual environment (`.\venv\Scripts\activate`) before running `pip install` or before running `python rag_script.py`. Activate it and try `pip install ...` again or run the script again.
-* **Ollama Connection Error:** Ensure the Ollama application is running in the background on Windows. Ensure you pulled the correct model (`ollama pull phi4-mini` or the model specified in the script).
-* **PDF Not Found Error:** Make sure the pdf documents are is in the *exact same folder* as you specified at the beginning of your `rag_script.py`. Check for typos in the filename within the script (`SOURCE_DIRECTORY` variable).
+* **`python`, `python3`, or `pip` not recognized:** Verify that Python 3 is installed and on your `PATH`. On Windows, re-run the installer with **Add Python to PATH** enabled. On macOS/Linux, verify whether your system uses `python3` instead of `python`.
+* **Virtual environment activation error:** Make sure you are in the project root and that the `.venv` folder exists. Use the activation command for your operating system and shell.
+* **PowerShell activation blocked:** Run `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once, then retry `./.venv/Scripts/Activate.ps1`.
+* **ModuleNotFoundError:** Activate the virtual environment and rerun `python -m pip install -r requirements.txt`.
+* **Ollama connection error:** Ensure the Ollama service is running and that `ollama list` works. Also confirm that `phi4-mini` was downloaded successfully.
+* **PDF not found or no PDFs loaded:** Make sure your `.pdf` files are directly inside the `source_docs` folder. The scripts look in the `SOURCE_DIRECTORY = "source_docs"` folder.
 * **Slow Performance:** The first run might be slow as it initializes the model and vector store. Subsequent runs should be faster. If it remains slow, check your system resources (CPU, RAM) and close unnecessary applications.
-* **Error Messages:** If you encounter any error messages, copy them and search online for solutions or ask for help. Many common issues have been encountered by others.
+* **Dependency build or wheel errors on very new Python versions:** If an ML dependency does not yet provide a wheel for your Python version, recreate the virtual environment with Python 3.12 or 3.13 and reinstall from `requirements.txt`.
+* **Error Messages:** If you encounter an error message, copy the full traceback and the command you ran. That usually makes the issue much faster to diagnose.
