@@ -10,8 +10,8 @@ from pathlib import Path
 
 # --- Configuration ---
 # Specify the Ollama MULTIMODAL model you want to use
-# Make sure you have pulled this model with 'ollama pull gemma3:12b'
-OLLAMA_MODEL = "gemma3:12b"
+# Make sure you have pulled this model with 'ollama pull gemma4:e2b'
+OLLAMA_MODEL = "gemma4:e2b"
 
 print("--- Multimodal LLM Image Analysis ---")
 print(f"Using Ollama model: {OLLAMA_MODEL}")
