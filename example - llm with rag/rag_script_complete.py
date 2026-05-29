@@ -7,11 +7,11 @@ import os
 
 # For splitting text into smaller chunks
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_chroma import Chroma
 
 from langchain_huggingface import HuggingFaceEmbeddings
 
 # For storing text chunks and their embeddings, allowing efficient search
-from langchain_core.vectorstores import InMemoryVectorStore
 
 # The Ollama language model
 from langchain_ollama import OllamaLLM
@@ -26,6 +26,7 @@ from pypdf import PdfReader
 SOURCE_DIRECTORY = "source_docs"
 CHUNK_SIZE = 500  # How many characters per text chunk
 CHUNK_OVERLAP = 50  # How much overlap between chunks
+RETRIEVAL_K = 5
 EMBEDDING_MODEL_NAME = (
     "sentence-transformers/all-MiniLM-L6-v2"  # Good default embedding model
 )
@@ -126,8 +127,8 @@ print(f"Initializing embedding model: {EMBEDDING_MODEL_NAME}...")
 embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
 
 print("Creating vector store (this might take a moment)...")
-# InMemoryVectorStore keeps the example dependency-light and easy to follow.
-vector_store = InMemoryVectorStore.from_documents(
+# Chroma is a vector store.
+vector_store = Chroma.from_documents(
     documents=split_chunks, embedding=embeddings
 )
 print("Vector store created.")
@@ -166,7 +167,10 @@ prompt = ChatPromptTemplate.from_template(prompt_template)
 
 # Create the Retriever:
 # This object knows how to fetch relevant chunks from the vector store.
-retriever = vector_store.as_retriever()
+retriever = vector_store.as_retriever(
+    search_type="mmr",
+    search_kwargs={"k": RETRIEVAL_K},
+)
 
 print("\nRAG system ready!")
 

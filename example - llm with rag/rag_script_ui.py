@@ -3,16 +3,17 @@ import gradio as gr
 
 # --- Core LangChain Components ---
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.vectorstores import InMemoryVectorStore
 from pypdf import PdfReader
 
 # --- Configuration ---
 SOURCE_DIRECTORY = "source_docs"  # Folder with your PDF files
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
+RETRIEVAL_K = 5
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 OLLAMA_MODEL = "phi4-mini"
 
@@ -67,8 +68,8 @@ print(f"Split into {len(split_chunks)} chunks.")
 # Embeddings turn text chunks into numerical vectors
 print("Creating embeddings and vector store (may take a moment)...")
 embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
-# InMemoryVectorStore keeps the example dependency-light and easy to run.
-vector_store = InMemoryVectorStore.from_documents(
+# Chroma is a vector store.
+vector_store = Chroma.from_documents(
     documents=split_chunks, embedding=embeddings
 )
 print("Vector store created.")
@@ -94,7 +95,10 @@ Answer:"""
 prompt = ChatPromptTemplate.from_template(prompt_template)
 
 # Retriever: Gets relevant chunks from the vector store
-retriever = vector_store.as_retriever()
+retriever = vector_store.as_retriever(
+    search_type="mmr",
+    search_kwargs={"k": RETRIEVAL_K},
+)
 
 
 print("\nRAG system ready!")
