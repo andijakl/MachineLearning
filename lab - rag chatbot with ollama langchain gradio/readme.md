@@ -2,12 +2,13 @@
 
 These exercises will help you understand the [provided Python script with LLMs & RAG](https://github.com/andijakl/MachineLearning/tree/main/example%20-%20llm%20with%20rag) by making small, manageable changes. You'll get a feel for how the different parts work together without needing deep ML theory.
 
-For each exercise set, summarize your main findings and any challenges you faced in about one paragraph. Upload your modified script and summary document to the course repository when you are done.
+For each exercise set, write a short reflection (about one paragraph) describing your main findings and any challenges you faced. Include the requested screenshots in this reflection document. Upload your modified script and reflection document to the course repository when you are done. The screenshots should show your own running terminal or Gradio UI and make your experiments visible.
 
 **Prerequisites**
 
 1. **Python 3 installed:** You need a working Python 3 installation.
-2. **Dependencies installed:** Use the project dependency file instead of typing package names manually.
+2. **Virtual environment activated:** Create and activate the project's virtual environment before installing dependencies. Follow Steps 8 and 9 in [the starter-repository setup guide](https://github.com/andijakl/MachineLearning/tree/main/example%20-%20llm%20with%20rag).
+3. **Dependencies installed:** Use the project dependency file instead of typing package names manually.
 
     ```bash
     python -m pip install -r requirements.txt
@@ -19,12 +20,12 @@ For each exercise set, summarize your main findings and any challenges you faced
     python3 -m pip install -r requirements.txt
     ```
 
-3. **Ollama running:** Ollama must be installed and running in the background, and the model used in the script must be pulled.
+4. **Ollama running:** Ollama must be installed and running in the background, and the model used in the script must be pulled.
     * Install Ollama from [https://ollama.com/](https://ollama.com/)
     * Run `ollama pull phi4-mini`
     * Make sure the Ollama app or background service is running before you start the Python script
-4. **Source documents:** Create a folder named `source_docs` in the same directory as the Python script and place at least one PDF inside it.
-5. **Starter script:** Use `rag_script_ui.py` as your starting point.
+5. **Source documents:** Create a folder named `source_docs` in the same directory as the Python script and place at least one PDF inside it.
+6. **Starter script:** Use `rag_script_ui.py` as your starting point.
 
 **General Instructions**
 
@@ -44,10 +45,11 @@ These tasks focus on changing existing settings.
     * **Goal:** Experiment with how the document text is split into smaller pieces. Larger chunks preserve more context, while smaller chunks are more focused.
     * **How:**
         * Find `CHUNK_SIZE = 500` and `CHUNK_OVERLAP = 50`.
-        * Try a larger chunk size such as `700`.
-        * Try a smaller chunk size such as `300`.
-        * Also experiment with overlap values like `100` or `25`.
+        * Try a much larger chunk size such as `1,500`.
+        * Try a much smaller chunk size such as `100`.
+        * Also experiment with overlap values such as `0` and `300`.
     * **Test:** Run the script and compare the printed `Split into X chunks.` message. Then ask the same question in the Gradio UI and observe whether the answer changes.
+    * **Screenshot:** Capture the terminal output for at least two chunk-size settings, including the `Split into X chunks.` message.
 
 2. **Use a different Ollama model**
     * **Goal:** Compare how different local models answer the same question.
@@ -55,6 +57,7 @@ These tasks focus on changing existing settings.
         * Find `OLLAMA_MODEL = "phi4-mini"`.
         * Replace it with another model you have already pulled, for example `gemma3:1b`.
     * **Test:** Run the script again. Does the new model initialize correctly? Does the style or quality of the answer change? Does the UI description update?
+    * **Screenshot:** Capture the Gradio UI showing an answer produced by the changed model.
 
 ---
 
@@ -69,6 +72,7 @@ These tasks change the Gradio interface.
         * Edit `title="..."`.
         * Edit `description="..."`.
     * **Test:** Run the script and open the Gradio app. Are your changes visible?
+    * **Screenshot:** Capture the changed title and description in the Gradio UI.
 
 2. **Customize the input and output labels**
     * **Goal:** Rename the text boxes in the UI.
@@ -76,12 +80,14 @@ These tasks change the Gradio interface.
         * In `inputs=gr.Textbox(...)`, change the `label` value.
         * In `outputs=gr.Textbox(...)`, change the `label` value.
     * **Test:** Run the script and confirm the labels have changed.
+    * **Screenshot:** Capture the changed input and output labels.
 
 3. **Adjust textbox sizes**
     * **Goal:** Make the question box or answer box taller or shorter.
     * **How:**
         * Change the `lines=...` values inside the two `gr.Textbox(...)` definitions.
     * **Test:** Run the script and check whether the text boxes resize as expected.
+    * **Screenshot:** Capture the resized text boxes.
 
 ---
 
@@ -96,44 +102,13 @@ This set changes the instructions sent to the LLM.
         * Change the text before `Context:`.
         * For example, replace `Answer the following question based only on the provided context:` with `Be very brief and answer the question using only the provided context:`.
     * **Test:** Run the script and ask the same question as before. Does the answer style change?
+    * **Screenshot:** Capture an answer that demonstrates the new instruction style.
 
 ---
 
-## Exercise Set 4: Adding Simple Code Logic (Medium)
+## Exercise Set 4: Simple Extension (Medium)
 
-These tasks add small debugging or inspection features.
-
-1. **Add more print statements for debugging**
-    * **Goal:** Understand the flow of data through the system.
-    * **How:**
-        * **Print number of PDFs found:** inside `load_pdf_texts(...)`, add a print statement that counts only `.pdf` files in the folder.
-        * **Print the first chunk:** after this line:
-
-            ```python
-            split_chunks = text_splitter.create_documents(pdf_texts, metadatas=pdf_metadatas)
-            ```
-
-            add:
-
-            ```python
-            print("--- First Chunk Example ---")
-            print(split_chunks[0].page_content)
-            ```
-
-        * **Print the retrieved context:** inside `ask_rag_system(...)`, right after `retrieved_docs = retriever.invoke(question)`, add:
-
-            ```python
-            print("--- Retrieved Context ---")
-            print(format_context(retrieved_docs))
-            ```
-
-    * **Test:** Run the script and inspect the terminal output. Do these extra prints help you understand what is happening?
-
----
-
-## Exercise Set 5: Simple Extension (Medium)
-
-This set extends the file loading step.
+This set extends the file-loading step before you inspect it in more detail.
 
 1. **Add support for `.txt` files**
     * **Goal:** Load plain text files from `source_docs` in addition to PDFs.
@@ -175,6 +150,40 @@ This set extends the file loading step.
         ```
 
     * **Test:** Add a `.txt` file to `source_docs`, run the script, and confirm you can ask questions about its contents.
+    * **Screenshot:** Capture the terminal output that shows both a PDF and TXT file being loaded, or capture the UI answering a question that can only be answered from the TXT file.
+
+---
+
+## Exercise Set 5: Adding Simple Code Logic (Medium)
+
+These tasks add small debugging or inspection features.
+
+1. **Add more print statements for debugging**
+    * **Goal:** Understand the flow of data through the system.
+    * **How:**
+        * **Print source-file counts:** inside `load_source_texts(...)`, add print statements that count `.pdf` files and `.txt` files in the folder.
+        * **Print the first chunk:** after this line:
+
+            ```python
+            split_chunks = text_splitter.create_documents(source_texts, metadatas=source_metadatas)
+            ```
+
+            add:
+
+            ```python
+            print("--- First Chunk Example ---")
+            print(split_chunks[0].page_content)
+            ```
+
+        * **Print the retrieved context:** inside `ask_rag_system(...)`, right after `retrieved_docs = retriever.invoke(question)`, add:
+
+            ```python
+            print("--- Retrieved Context ---")
+            print(format_context(retrieved_docs))
+            ```
+
+    * **Test:** Run the script and inspect the terminal output. Do these extra prints help you understand what is happening?
+    * **Screenshot:** Capture the terminal output showing the file counts, the first chunk, and retrieved context.
 
 ---
 
@@ -182,16 +191,7 @@ This set extends the file loading step.
 
 These tasks focus on retrieval behavior.
 
-1. **Try a different embedding model**
-    * **Goal:** Compare how different embedding models affect retrieval quality.
-    * **How:**
-        * Find `EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"`.
-        * Replace it with another sentence-transformer model, for example:
-            * `"sentence-transformers/paraphrase-MiniLM-L3-v2"`
-            * `"sentence-transformers/multi-qa-MiniLM-L6-cos-v1"`
-    * **Test:** Run the script and ask the same questions as before. Do the retrieved answers feel more or less relevant? Does startup time change?
-
-2. **See which source files were retrieved**
+1. **See which source files were retrieved**
     * **Goal:** Print the source files of the retrieved chunks so you can better understand why the model answered the way it did.
     * **How:**
         * Inside `ask_rag_system(...)`, after `retrieved_docs = retriever.invoke(question)`, add code similar to this:
@@ -208,8 +208,9 @@ These tasks focus on retrieval behavior.
         ```
 
     * **Test:** Run the script, ask a question, and inspect the terminal output. Do the listed source files make sense?
+    * **Screenshot:** Capture the terminal output showing the retrieved source file names.
 
-3. **Adjust the number of retrieved chunks (`k`)**
+2. **Adjust the number of retrieved chunks (`k`)**
     * **Goal:** Control how many chunks are retrieved before the prompt is built.
     * **How:**
         * Add a new configuration value near the top of the file:
@@ -230,8 +231,9 @@ These tasks focus on retrieval behavior.
             retriever = vector_store.as_retriever(search_kwargs={"k": RETRIEVAL_K})
             ```
 
-        * Try values like `1`, `2`, `3`, or `5`.
+        * Try values like `1`, `3`, or `5`.
     * **Test:** Run the script, ask the same question multiple times with different `k` values, and compare the answers.
+    * **Screenshot:** Capture terminal output or UI answers for at least two `k` values.
 
 ---
 
@@ -261,17 +263,26 @@ These tasks focus on retrieval behavior.
         ```
 
     * **Test:** Stop Ollama and run the script again. Does the error message help you understand what went wrong?
+        * **macOS:** Ollama commonly runs as a launch agent. To stop it temporarily, run:
 
-2. **Add a clear button to the UI**
-    * **Goal:** Add a button that clears both the question and answer boxes.
+            ```bash
+            launchctl stop com.ollama.ollama
+            ```
+
+          If it restarts immediately, quit the Ollama menu-bar app first, then consult [this macOS Ollama service discussion](https://www.reddit.com/r/ollama/comments/1sj18yd/macos_stop_ollama_service/) for the service-management command that matches your installation.
+    * **Screenshot:** Capture the terminal showing the startup error and troubleshooting message. Restart Ollama after this test.
+
+2. **Rename the submit button**
+    * **Goal:** Make the primary UI action more specific to the document Q&A task.
     * **How:**
-        * Inside `gr.Interface(...)`, add:
+        * Inside `gr.Interface(...)`, add a custom label for the built-in submit button:
 
         ```python
-        clear_btn="Clear Inputs"
+        submit_btn="Ask the documents"
         ```
 
-    * **Test:** Run the script, ask a question, then click the clear button. Do both text boxes clear?
+    * **Test:** Run the script and confirm the renamed button still submits a question and produces an answer.
+    * **Screenshot:** Capture the renamed button and its resulting answer in the Gradio UI.
 
 3. **Change the UI theme**
     * **Goal:** Experiment with Gradio's built-in themes.
@@ -294,3 +305,4 @@ These tasks focus on retrieval behavior.
             * `theme=gr.themes.Glass()`
             * `theme=gr.themes.Monochrome()`
     * **Test:** Run the script and compare how the interface looks with different themes.
+    * **Screenshot:** Capture the UI with your selected theme.
