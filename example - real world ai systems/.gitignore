@@ -1,0 +1,13 @@
+# Local environment
+.venv/
+__pycache__/
+*.pyc
+.env
+
+# Downloaded models and generated output
+*.onnx
+*.onnx.json
+sample.wav
+
+# Windows metadata from copying files into WSL
+*:Zone.Identifier
